@@ -28,19 +28,19 @@ subreddit = reddit.subreddit('testingground4bots')
 
 # obtain a permanent token
 
-url = reddit.auth.url([scope], '...', 'permanent')
-print(url)
+# url = reddit.auth.url([scope], '...', 'permanent')
+# print(url)
 
-# assign code the rerturn url from the auth url
-# using already obtained code
-code = scopes.read
-print(code)
-print('\n')
+# # assign code the rerturn url from the auth url
+# # using already obtained code
+# code = scopes.read
+# print(code)
+# print('\n')
 
-# Getting authorisation
-reddit.auth.authorize(code)
+# # Getting authorisation
+# reddit.auth.authorize(code)
 
-for submissions in reddit.subreddit('all').hot(limit=25):
+for submissions in reddit.subreddit('testingground4bots').top(limit = 35):
 	print(submissions.title)
 
 
