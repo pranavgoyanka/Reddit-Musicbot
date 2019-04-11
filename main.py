@@ -32,8 +32,6 @@ url = reddit.auth.url([scope], '...', 'permanent')
 print(url)
 
 # assign code the rerturn url from the auth url
-# code = '4eJnpglTjtOAX6Wgia5ciE8LGgo' 
-
 # using already obtained code
 code = scopes.read
 print(code)
