@@ -23,6 +23,7 @@ reddit = praw.Reddit(client_id = client_id,
 # all oauth scopes link - https://www.reddit.com/r/GoldTesting/comments/3chbrm/all_oauth_scopes/
 
 scope = 'read'
+message = ''
 
 subreddit = reddit.subreddit('testingground4bots')
 
@@ -40,7 +41,52 @@ subreddit = reddit.subreddit('testingground4bots')
 # # Getting authorisation
 # reddit.auth.authorize(code)
 
-for submissions in reddit.subreddit('testingground4bots').top(limit = 35):
-	print(submissions.title)
+def botCallData(body):
+	global message
+	# format for data
+	# !musicbot artist <artist_name> OR
+	# !musicbot song <song_name> OR
+	# !musicbot album <album_name> OR
+	# !musicbot top5 <artist_name>
+	# !musicbot bio <artist_name>
+	info = body.split(' ')
+	if info[0] == "!musicbot":
+		if info[1] == 'artist':
+			# spotify_api_call to be placed here
+			print('artist is ' + info[1])
+			message = 'artist is ' + info[2]
+
+		elif info[1] == 'song':
+			print('song')
+			message = 'song is ' + info[2]
+		elif info[1] == 'album':
+			print('album')
+			message = 'album is ' + info[2]
+		elif info[1] == 'top5':
+			print('top5')
+			message = 'Here\'s a list of top 5 songs by' + info[2]
+		elif info[1] == 'bio':
+			print('bio')
+			message = 'bio of ' + info[2]
+		else:
+			message = 'Invalid format'
+	else:
+		message = 'Am I not needed here?'
+
+
+
+comments = subreddit.stream.comments()
+
+for comment in comments:
+	if '!musicbot' in comment.body.lower():
+		botCallData(comment.body.lower())
+		comment.reply(message)
+
+
+
+
+
+
+
 
 
