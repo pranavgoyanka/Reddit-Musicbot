@@ -25,12 +25,12 @@ A bot for Reddit that pulls up information about music and related stuff.
 
 #### Artist
 
-![artist](.\screenshots\1.PNG)
+![artist](https://github.com/pranavgoyanka/Reddit-Musicbot/blob/master/screenshots/1.PNG)
 
 #### Track
 
-![track](./screenshots/2.png)
+![track](https://github.com/pranavgoyanka/Reddit-Musicbot/blob/master/screenshots/2.PNG)
 
 #### Invalid Format
 
-![potato](./screenshots/3.png)
+![potato](https://github.com/pranavgoyanka/Reddit-Musicbot/blob/master/screenshots/3.PNG)
