@@ -1,4 +1,6 @@
 import praw
+import time
+import traceback
 # from praw.model import Message
 import prawcreds as pc
 import codes_scopes as scopes
@@ -9,7 +11,7 @@ password = pc.password
 user_agent = pc.user_agent
 username = pc.username
 redirect_uri = pc.redirect_uri
-
+runs = 0
 reddit = praw.Reddit(client_id = client_id,
 					 client_secret = client_secret,
 					 password = password,
@@ -48,53 +50,24 @@ beepboop = '''\n\nBeep Boop, I am a bot\n
 
 def botCallData(body):
 	global message
-	# format for data
-	# !musicbot artist <artist_name> OR
-	# !musicbot track <song_name> OR
-	# !musicbot album <album_name> OR
-	# !musicbot top5 <artist_name>
-	# !musicbot bio <artist_name>
 	info = body.split(' ')
-	# if info[0] == "!musicbot":
-	# 	if info[1] == 'artist':
-	# 		# spotify_api_call to be placed here
-	# 		print('artist is ' + info[1])
-	# 	elif info[1] == 'song':
-	# 		print('song')
-	# 		message = 'song is ' + info[2]
-	# 	elif info[1] == 'album':
-	# 		print('album')
-	# 		message = 'album is ' + info[2]
-	# 	elif info[1] == 'top5':
-	# 		print('top5')
-	# 		message = 'Here\'s a list of top 5 songs by' + info[2]
-	# 	elif info[1] == 'bio':
-	# 		print('bio')
-	# 		message = 'bio of ' + info[2]
-	# 	else:
-	# 		message = 'Invalid format'
-	# else:
-	# 	message = 'Am I not needed here?'
-
 	if (info[0] == '/u/goodmusicbot' or info[0] == 'u/goodmusicbot'):
 		spd.search(info[1], ' '.join(info[2:]))
 		message = 'Here you go: ' + (' '.join(info[2:])) + ' (%s)' %spd.url
 		print(info[2:])
 		return message
 	else:
-		return 'Am I needed here?'
+		message = "DONT REPLY"
+		return message
 
-# comments = subreddit.stream.comments()
-# fn6ia2c
-# for comment in comments:
-# 	if '!musicbot' in comment.body.lower():
-# 		try:
-# 			botCallData(comment.body.lower())
-# 			comment.reply(message + beepboop)
-# 		except:
-# 			print('Error!')
+def readLogs(runs):
+	with open('total_run_logs.txt') as f:
+		runs = int(f.read())
 
-# Message read
+def storeLogs(runs):
+	f = open('total_run_logs.txt', 'w')
+	f.write(str(runs))
+	f.close()
 
 def botify():
 	for item in reddit.inbox.unread(limit=None):
@@ -105,17 +78,22 @@ def botify():
 			try:
 				# if(botCallData(comment.body)):
 				botCallData(comment.body.lower())
-				comment.reply(message + beepboop)
+				if(message!='DONT REPLY'):
+					comment.reply(message + beepboop)
+					# runs = runs + 1
 				item.mark_read()
 			except:
 				print("Unexpected error:")
+				traceback.print_exc()
+				time.sleep(600)
 				# print(item)
 				# print('Error!')
 
+# Main Bot Call
+
 while(True):
+	print('run')
+	# readLogs(runs)
 	botify()
-
-
-# Mention Read
-# for mention in reddit.inbox.mentions(limit=None):
-#     print('{}\n{}\n'.format(mention.author, mention.body))
+	# storeLogs(runs)
+	time.sleep(30)
