@@ -1,5 +1,6 @@
 import praw
 import time
+import logging
 import traceback
 # from praw.model import Message
 import prawcreds as pc
@@ -18,6 +19,12 @@ reddit = praw.Reddit(client_id = client_id,
 					 user_agent = user_agent,
 					 username = username, 
 					 redirect_uri = redirect_uri)
+
+# Logging 
+for handler in logging.root.handlers[:]:
+    logging.root.removeHandler(handler)
+logging.basicConfig(filename='./botlog.log', level=logging.WARNING, format='%(asctime)s  %(message)s',
+                    datefmt='%m-%d %H:%M',)
 
 # important scopes
 # read - read content from posts
@@ -54,21 +61,13 @@ def botCallData(body):
 	if (info[0] == '/u/goodmusicbot' or info[0] == 'u/goodmusicbot'):
 		spd.search(info[1], ' '.join(info[2:]))
 		message = 'Here you go: ' + (' '.join(info[2:])) + ' (%s)' %spd.url
-		print(info[2:])
+		# print(info[2:])
+		logging.warning(info[2:])
 		return message
 	else:
 		message = "DONT REPLY"
 		return message
-
-def readLogs(runs):
-	with open('total_run_logs.txt') as f:
-		runs = int(f.read())
-
-def storeLogs(runs):
-	f = open('total_run_logs.txt', 'w')
-	f.write(str(runs))
-	f.close()
-
+		
 def botify():
 	for item in reddit.inbox.unread(limit=None):
 		# print(repr(item))
@@ -84,16 +83,19 @@ def botify():
 				item.mark_read()
 			except:
 				print("Unexpected error:")
+				logging.warning('Unexpected Error')
 				traceback.print_exc()
-				time.sleep(600)
+				item.mark_read()
+				time.sleep(10)
 				# print(item)
 				# print('Error!')
 
 # Main Bot Call
 
 while(True):
-	print('run')
+	# print('run')
+	# logging.warning('run')
 	# readLogs(runs)
 	botify()
 	# storeLogs(runs)
-	time.sleep(30)
+	time.sleep(10)
