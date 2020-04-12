@@ -21,6 +21,7 @@ A bot for Reddit that pulls up information about music and related stuff.
 
 ## To Do
 > Fix exception handling to accomodate for API time outs
+
 > Deploy
 
 ## Screenshots
