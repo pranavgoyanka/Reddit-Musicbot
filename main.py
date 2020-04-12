@@ -1,4 +1,5 @@
 import praw
+# from praw.model import Message
 import prawcreds as pc
 import codes_scopes as scopes
 import spotifydata as spd
@@ -75,19 +76,46 @@ def botCallData(body):
 	# else:
 	# 	message = 'Am I not needed here?'
 
-	if info[0] == '!musicbot':
-		spd.search(info[1], '%20'.join(info[2:]))
-		message = 'Here you go: ' + ' '.join(info[2:]) + ' (%s)' %spd.url
+	if (info[0] == '/u/goodmusicbot' or info[0] == 'u/goodmusicbot'):
+		spd.search(info[1], ' '.join(info[2:]))
+		message = 'Here you go: ' + (' '.join(info[2:])) + ' (%s)' %spd.url
 		print(info[2:])
 		return message
+	else:
+		return 'Am I needed here?'
+
+# comments = subreddit.stream.comments()
+# fn6ia2c
+# for comment in comments:
+# 	if '!musicbot' in comment.body.lower():
+# 		try:
+# 			botCallData(comment.body.lower())
+# 			comment.reply(message + beepboop)
+# 		except:
+# 			print('Error!')
+
+# Message read
+
+def botify():
+	for item in reddit.inbox.unread(limit=None):
+		# print(repr(item))
+		comment = item
+
+		if(str(type(comment)) == "<class 'praw.models.reddit.comment.Comment'>"):
+			try:
+				# if(botCallData(comment.body)):
+				botCallData(comment.body.lower())
+				comment.reply(message + beepboop)
+				item.mark_read()
+			except:
+				print("Unexpected error:")
+				# print(item)
+				# print('Error!')
+
+while(True):
+	botify()
 
 
-
-comments = subreddit.stream.comments()
-
-for comment in comments:
-	if '!musicbot' in comment.body.lower():
-		botCallData(comment.body.lower())
-		comment.reply(message + beepboop)
-
-
+# Mention Read
+# for mention in reddit.inbox.mentions(limit=None):
+#     print('{}\n{}\n'.format(mention.author, mention.body))
