@@ -7,17 +7,17 @@ A bot for Reddit that pulls up information about music and related stuff.
 
 #### Working:
 
-`!musicbot artist <artist_name>` 
+`u/goodmusicbot artist <artist_name>` 
 
-`!musicbot song <song_name>`
+`u/goodmusicbot track <song_name>`
 
-`!musicbot album <album_name>`
+`u/goodmusicbot album <album_name>`
 
 #### Upcoming:
 
-`!musicbot top5 <artist_name>`
+`u/goodmusicbot top5 <artist_name>`
 
-`!musicbot bio <artist_name>`
+`u/goodmusicbot bio <artist_name>`
 
 ## To Do
 > Fix exception handling to accomodate for API time outs
