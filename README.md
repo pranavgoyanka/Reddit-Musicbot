@@ -13,18 +13,17 @@ A bot for Reddit that pulls up information about music and related stuff.
 
 `u/goodmusicbot album <album_name>`
 
+You can also add the artist name and song/track/album name together to get a more accurate result.
+
+eg: u/goodmusicbot track muse polyphia
+
 #### Upcoming:
 
 `u/goodmusicbot top5 <artist_name>`
 
 `u/goodmusicbot bio <artist_name>`
 
-## To Do
-> Fix exception handling to accomodate for API time outs
-
-> Deploy
-
-## Screenshots
+## Screenshots (old; need to be updated)
 
 #### Artist
 
