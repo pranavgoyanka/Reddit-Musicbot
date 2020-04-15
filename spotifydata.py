@@ -43,6 +43,7 @@ def getToken():
 def search(categ, name):
 	global token
 	global results
+	global url
 	token = getToken()
 	sp = spotipy.Spotify(auth=token) 
 	results = sp.search(q=name, type=categ)
