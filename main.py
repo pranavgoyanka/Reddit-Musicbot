@@ -63,7 +63,7 @@ def botCallData(body):
 	info = body.split(' ')
 	if (info[0] == '/u/goodmusicbot' or info[0] == 'u/goodmusicbot'):
 		spd.search(info[1], ' '.join(info[2:]))
-		if url==None:
+		if spd.url==None:
 			message	= "Sorry, I wasn't able to find that. Maybe include more keywords such as the artist and album names along with the track name. :[ " 
 		message = 'Here you go: ' + (' '.join(info[2:])) + ' (%s)' %spd.url + ' :]'
 		# print(info[2:])
