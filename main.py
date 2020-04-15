@@ -2,10 +2,13 @@ import praw
 import time
 import logging
 import traceback
+from art import *
+import os
 # from praw.model import Message
 import prawcreds as pc
 import codes_scopes as scopes
 import spotifydata as spd
+
 client_id = pc.client_id
 client_secret = pc.client_secret
 password = pc.password
@@ -60,7 +63,9 @@ def botCallData(body):
 	info = body.split(' ')
 	if (info[0] == '/u/goodmusicbot' or info[0] == 'u/goodmusicbot'):
 		spd.search(info[1], ' '.join(info[2:]))
-		message = 'Here you go: ' + (' '.join(info[2:])) + ' (%s)' %spd.url
+		if url==None:
+			message	= "Sorry, I wasn't able to find that. Maybe include more keywords such as the artist and album names along with the track name. :[ " 
+		message = 'Here you go: ' + (' '.join(info[2:])) + ' (%s)' %spd.url + ' :]'
 		# print(info[2:])
 		logging.warning(info[2:])
 		return message
@@ -91,6 +96,9 @@ def botify():
 				# print('Error!')
 
 # Main Bot Call
+width = os.get_terminal_size().columns
+tprint('music bot', font='slant')
+print('Made By Pranav Goyanka')
 
 while(True):
 	# print('run')
