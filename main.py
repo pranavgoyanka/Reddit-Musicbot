@@ -65,9 +65,11 @@ def botCallData(body):
 		spd.search(info[1], ' '.join(info[2:]))
 		if spd.url==None:
 			message	= "Sorry, I wasn't able to find that. Maybe include more keywords such as the artist and album names along with the track name. :[ " 
-		message = 'Here you go: ' + (' '.join(info[2:])) + ' (%s)' %spd.url + ' :]'
+			logging.warning('Unable to find: ' + ' '.join(info[2:]))
+		else:
+			message = 'Here you go: ' + (' '.join(info[2:])) + ' (%s)' %spd.url + ' :]'
 		# print(info[2:])
-		logging.warning(info[2:])
+			logging.warning(info[2:])
 		return message
 	else:
 		message = "DONT REPLY"

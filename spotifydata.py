@@ -57,7 +57,8 @@ def search(categ, name):
 	if len(results[cat]['items']) == 0:
 		url = None
 	data(categ)
-	improvedDataRanked(categ, name)
+	if url != None:
+		improvedDataRanked(categ, name)
 
 #Read token saved in the file token.txt
 def tokenFile():
@@ -69,13 +70,16 @@ def tokenFile():
 def data(categ):
 	global url
 	if categ == 'track':
-		url = results['tracks']['items'][0]['external_urls']['spotify']
+		try: url = results['tracks']['items'][0]['external_urls']['spotify']
+		except: url = None
 
 	elif categ == 'artist':
-		url = results['artists']['items'][0]['external_urls']['spotify']
+		try: url = results['artists']['items'][0]['external_urls']['spotify']
+		except: url = None
 
 	elif categ == 'album':
-		url = results['albums']['items'][0]['external_urls']['spotify']
+		try: url = results['albums']['items'][0]['external_urls']['spotify']
+		except: url = None
 
 
 # Improved search
