@@ -139,14 +139,14 @@ def improvedDataRanked(categ, q):
 
 
 		lenC = len(checkString)
-		print('-----------------ITEM---------------')
-		print(checkString)
+		# print('-----------------ITEM---------------')
+		# print(checkString)
 		# print(lenC)
-		print(query)
+		# print(query)
 		if len(checkString) != 0:
 			for el in checkString:
 				if el.lower() in query:
-					print(el.lower())
+					# print(el.lower())
 					checkString.remove(el)
 					query.remove(el.lower())
 
